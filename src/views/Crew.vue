@@ -40,7 +40,7 @@ onMounted(async () => {
     console.log('Crews:', crewData.value);
 });
 
-const selectCrew = (crew) => {
+const selectCrew = (crew: any) => {
     selectedCrew.value = crew;
 };
 </script>

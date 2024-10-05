@@ -54,7 +54,7 @@ onMounted(async () => {
     console.log('Destinations:', destinationData.value);
 });
 
-const selectDestination = (destination) => {
+const selectDestination = (destination: any) => {
     selectedDestination.value = destination;
 };
 </script>

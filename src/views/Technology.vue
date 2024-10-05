@@ -41,7 +41,7 @@ onMounted(async () => {
     selectedT.value = technologyData.value[0];
     console.log('Technology:', technologyData.value);
 });
-const selectT = (technology) => {
+const selectT = (technology: any) => {
     selectedT.value = technology;
 };
 </script>
