@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <header>
+    <header :class="{scrolled: isScrolled}">
       <div class="container">
         <div class="content">
           <router-link to="/"><img src="/src/assets/shared/logo.svg" alt=""></router-link>
@@ -34,10 +34,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const display = ref(false)
-
+const isScrolled = ref(false)
+function scrollPage() {
+  isScrolled.value = window.scrollY > 40
+}
+onMounted(()=>{
+  window.addEventListener('scroll', scrollPage)
+})
+onUnmounted(()=>{
+  window.removeEventListener('scroll', scrollPage)
+})
 function displayMenu() {
   display.value = !display.value
 }
@@ -59,7 +68,9 @@ header {
   left: 0;
   z-index: 10;
 }
-
+.scrolled{
+  background-color: #000000c5;
+}
 .container {
   max-width: 1044px;
   margin: 0 auto;
@@ -77,10 +88,6 @@ header {
 .content a img {
   width: 70%;
 }
-
-/* nav{
-  background-color: 	#152D4C;
-} */
 ul {
   display: flex;
   align-items: center;
