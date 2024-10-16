@@ -91,14 +91,16 @@ main {
 }
 
 .crew {
+    width: 100%;
+   /*  height: 100%; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0;
 }
-
 .crew img {
     width: 70%;
+    height: 100%;
 }
 
 ul {
@@ -122,6 +124,7 @@ li {
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
+    /* gap: 150px; */
 }
 
 .info {
@@ -199,8 +202,10 @@ h3,
         text-align: center;
     }
     .description{
-        text-align: center;
         width: 100%;
+        text-align: center;
+        justify-content: space-between;
+        
     }
     ul{
         justify-content: center;
@@ -222,8 +227,11 @@ h3,
     .description{
         display: flex;
         flex-direction: column-reverse;
-        gap: 30px;
+        justify-content: space-between;
         height: 400px;
+    }
+    .info p{
+        font-size: 15px;
     }
 }
 </style>
