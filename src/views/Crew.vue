@@ -18,7 +18,7 @@
                         </div>
                         <div class="img"><img :src="selectedCrew?.images.png" alt=""></div>
                     </div>
-                </div>
+                </div>selectedDestination?
             </div>
         </section>
     </main>
@@ -29,8 +29,18 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-const crewData = ref([])
-const selectedCrew = ref(null)
+interface CrewMember {
+    name: string;
+    role: string;
+    bio: string;
+    images: {
+        png: string;
+        webp: string;
+    };
+}
+
+const crewData = ref<CrewMember[]>([])
+const selectedCrew = ref<CrewMember | null>(null)
 
 onMounted(async () => {
     const response = await axios.get('/data.json');

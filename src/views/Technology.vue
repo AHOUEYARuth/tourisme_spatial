@@ -31,8 +31,8 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-const technologyData = ref([])
-const selectedT = ref(null)
+const technologyData : any = ref([])
+const selectedT:any = ref(null)
 
 onMounted(async () => {
     const response = await axios.get('/data.json');

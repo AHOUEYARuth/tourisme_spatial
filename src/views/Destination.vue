@@ -3,10 +3,10 @@
         <section id="home">
             <div class="container">
                 <div class="content">
-                    <p class="p"><strong>01</strong>PICK YOUR DESTINATION</p>
+                    <p class="p"><strong>01</strong>PICK YOUR DESTINATION</p>   
                     <div class="destination">
                         <div class="img">
-                            <img :src="selectedDestination?.images.png" alt="" />
+                            <img :src="selectedDestination?.images.png" :alt=selectedDestination?.name />
                         </div>
                         <nav>
                             <ul>
@@ -43,8 +43,8 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-const destinationData = ref([]);
-const selectedDestination = ref(null);
+const destinationData : any = ref([]);
+const selectedDestination: any = ref(null);
 
 onMounted(async () => {
     const response = await axios.get('/data.json');
@@ -55,6 +55,8 @@ onMounted(async () => {
 });
 
 const selectDestination = (destination: any) => {
+    console.log(destination);
+    
     selectedDestination.value = destination;
 };
 </script>
