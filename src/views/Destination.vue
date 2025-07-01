@@ -6,7 +6,7 @@
                     <p class="p"><strong>01</strong>PICK YOUR DESTINATION</p>   
                     <div class="destination">
                         <div class="img">
-                            <img :src="selectedDestination?.images.png" :alt=selectedDestination?.name />
+                            <img src="/src/assets/destination/image-{{selectedDestination?.name.toLowercase()}}.png" :alt=selectedDestination?.name />
                         </div>
                         <nav>
                             <ul>
