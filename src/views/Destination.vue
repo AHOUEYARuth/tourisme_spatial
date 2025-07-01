@@ -6,7 +6,7 @@
                     <p class="p"><strong>01</strong>PICK YOUR DESTINATION</p>   
                     <div class="destination">
                         <div class="img">
-                            <img src="/src/assets/destination/image-{{selectedDestination?.name.toLowercase()}}.png" :alt=selectedDestination?.name />
+                            <img :src="getImageUrl(selectedDestination?.name)" :alt="selectedDestination?.name" />
                         </div>
                         <nav>
                             <ul>
@@ -45,6 +45,19 @@ import { ref, onMounted } from "vue";
 
 const destinationData : any = ref([]);
 const selectedDestination: any = ref(null);
+
+// Dynamically import all destination images
+const images = import.meta.glob('../assets/destination/image-*.png', { eager: true, import: 'default' });
+
+function getImageUrl(name: string | undefined): string {
+    if (!name) return '';
+    const key = `../assets/destination/image-${name.toLowerCase()}.png`;
+    const img = images[key];
+    // If img is a string, return it; if it's a module/object, try to get its default export
+    if (typeof img === 'string') return img;
+    if (img && typeof img === 'object' && 'default' in img) return img.default as string;
+    return '';
+}
 
 onMounted(async () => {
     const response = await axios.get('/data.json');
