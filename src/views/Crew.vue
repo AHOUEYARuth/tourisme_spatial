@@ -16,9 +16,9 @@
                                 <p class="p">{{ selectedCrew?.bio }}</p>
                             </div>
                         </div>
-                        <div class="img"><img :src="selectedCrew?.images.png" alt=""></div>
+                        <div class="img"><img :src="getImageUrl(selectedCrew?.name)" alt=""></div>
                     </div>
-                </div>selectedDestination?
+                </div>
             </div>
         </section>
     </main>
@@ -41,6 +41,18 @@ interface CrewMember {
 
 const crewData = ref<CrewMember[]>([])
 const selectedCrew = ref<CrewMember | null>(null)
+
+const images = import.meta.glob('../assets/crew/image-*.png', { eager: true, import: 'default' });
+function getImageUrl(name: string | undefined): string {
+    if (!name) return '';
+
+    const key = `../assets/crew/image-${name.toLowerCase().split(" ").join('-')}.png`;
+    const img = images[key];
+    if (typeof img === 'string') return img;
+    if (img && typeof img === 'object' && 'default' in img) return img.default as string;
+    return '';
+}
+
 
 onMounted(async () => {
     const response = await axios.get('/data.json');

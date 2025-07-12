@@ -46,14 +46,12 @@ import { ref, onMounted } from "vue";
 const destinationData : any = ref([]);
 const selectedDestination: any = ref(null);
 
-// Dynamically import all destination images
 const images = import.meta.glob('../assets/destination/image-*.png', { eager: true, import: 'default' });
 
 function getImageUrl(name: string | undefined): string {
     if (!name) return '';
     const key = `../assets/destination/image-${name.toLowerCase()}.png`;
     const img = images[key];
-    // If img is a string, return it; if it's a module/object, try to get its default export
     if (typeof img === 'string') return img;
     if (img && typeof img === 'object' && 'default' in img) return img.default as string;
     return '';

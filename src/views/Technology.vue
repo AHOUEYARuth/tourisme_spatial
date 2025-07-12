@@ -17,7 +17,7 @@
                                 <P>{{ selectedT?.description }}</P>
                             </div>
                         </nav>
-                        <div class="img"><img :src="selectedT?.images.portrait" alt="">
+                        <div class="img"><img :src="getImageUrl(selectedT?.name)" alt="">
                         </div>
                     </div>
                 </div>
@@ -33,6 +33,36 @@ import { ref, onMounted } from "vue";
 
 const technologyData : any = ref([])
 const selectedT:any = ref(null)
+
+ const images = import.meta.glob('../assets/technology/image-*-portrait.jpg', { eager: true, import: 'default' });
+/*function getImageUrl(name: string | undefined): string {
+    if (!name) return '';
+    let key, getName = name.toLowerCase().split(" ")
+    if (getName.length > 1) {
+        key = `../assets/crew/image-${getName.join('-')}-portrait.jpg`;
+    } else {
+        key = `../assets/crew/image-${getName[0]}-portrait.jpg`;
+    }
+    const img = images[key];
+    if (typeof img === 'string') return img;
+    if (img && typeof img === 'object' && 'default' in img) return img.default as string;
+    return '';
+} */
+
+function getImageUrl(name: string | undefined): string {
+  if (!name) return '';
+
+  const getName = name.toLowerCase().split(" ").join("-");
+  const key = `../assets/technology/image-${getName}-portrait.jpg`;
+
+  const img = images[key];
+
+  if (typeof img === 'string') return img;
+  if (img && typeof img === 'object' && 'default' in img) return img.default as string;
+
+  return '';
+}
+
 
 onMounted(async () => {
     const response = await axios.get('/data.json');
@@ -151,6 +181,7 @@ h1 {
     background-color: #fff;
     border: none;
     color: #000;
+    transition: .3s ease-in-out;
 }
 
 .text {
